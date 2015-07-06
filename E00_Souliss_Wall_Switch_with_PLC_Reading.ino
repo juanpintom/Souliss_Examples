@@ -1,6 +1,12 @@
 /**************************************************************************
     Souliss - Hello World
     
+    Using the scheme here:
+    https://groups.google.com/forum/#!msg/souliss-it/PIYQUQf4W70/fjSdjvmN79UJ
+    We can now the state of Lights (220v) and modify the state of typical based on the state of PLC.
+    
+    I added a button to switch the Output Relay, this acts like a wall switch.
+    
     This is the basic example, control one LED via a push-button or Android
     using SoulissApp (get it from Play Store).  
     
