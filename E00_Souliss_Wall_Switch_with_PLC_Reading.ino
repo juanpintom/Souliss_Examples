@@ -65,9 +65,12 @@ void loop()
         FAST_50ms() {   // We process the logic and relevant input and output every 50 milliseconds
             //DigIn(2, Souliss_T1n_ToggleCmd, MYLEDLOGIC);            // Use the pin2 as ON/OFF toggle command
             
-            if(digitalRead(BUTTON) && InPin[BUTTON] == PINRESET) { 
+           /* if(digitalRead(BUTTON) && InPin[BUTTON] == PINRESET) { 
                  InPin[BUTTON] = PINSET;
-            }    
+            }
+            if(digitalRead(BUTTON) && InPin[BUTTON] == PINSET) { 
+                 InPin[BUTTON] = PINSET;
+            }
             if(!digitalRead(BUTTON) && InPin[BUTTON] == PINSET) { 
                  InPin[BUTTON] = PINRELEASED;
             }
@@ -77,8 +80,8 @@ void loop()
             }
             
             if(digitalRead(PLC_READ_PIN)) mOutput(MYLEDLOGIC) = Souliss_T1n_OnCoil; 
-            else mOutput(MYLEDLOGIC) = Souliss_T1n_OffCoil;
-            
+            else mOutput(MYLEDLOGIC) = Souliss_T1n_OffCoil;*/
+            SoulissPLC_Read(MYLEDLOGIC, BUTTON, PLC_READ_PIN, RELAY);
             Logic_SimpleLight(MYLEDLOGIC);                          // Drive the LED as per command
             
             
@@ -91,3 +94,32 @@ void loop()
         
     }
 } 
+
+uint8_t SoulissPLC_Read(uint8_t slot, uint8_t button_pin, uint8_t plc_pin, uint8_t relay_pin){
+    
+      if(digitalRead(button_pin) && InPin[button_pin] == PINRESET) { 
+                 InPin[button_pin] = PINSET;
+                 return InPin[button_pin];
+            }
+            if(digitalRead(button_pin) && InPin[button_pin] == PINSET) { 
+                 InPin[button_pin] = PINACTIVE;
+                 return InPin[button_pin];
+            }
+            if(!digitalRead(button_pin) && InPin[button_pin] == PINACTIVE) { 
+                 InPin[button_pin] = PINRELEASED;
+                 return InPin[button_pin];
+            }
+            if(!digitalRead(button_pin) && InPin[button_pin] == PINRELEASED) { 
+                 digitalWrite(relay_pin, !digitalRead(relay_pin));
+                 InPin[button_pin] = PINRESET;
+                 return InPin[button_pin];
+            }
+            
+            //if(digitalRead(PLC_READ_PIN)) mOutput(slot) = Souliss_T1n_OnCoil; 
+            //else mOutput(slot) = Souliss_T1n_OffCoil;
+            
+            if(digitalRead(plc_pin)) mInput(slot) = Souliss_T1n_OnCmd; 
+            else mOutput(slot) = Souliss_T1n_OffCmd;
+            
+    
+}
