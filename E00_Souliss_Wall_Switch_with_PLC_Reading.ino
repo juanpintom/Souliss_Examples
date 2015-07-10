@@ -85,7 +85,14 @@ void loop()
 } 
 
 uint8_t SoulissPLC_Read(uint8_t slot, uint8_t button_pin, uint8_t plc_pin, uint8_t relay_pin){
-    
+                           
+            if(mInput(slot) == Souliss_T1n_OnCmd || mInput(slot) == Souliss_T1n_OffCmd){
+                 if(PLC_DEBUG) Serial.println(mInput(slot));  
+                 digitalWrite(relay_pin, !digitalRead(relay_pin)); 
+                 memory_map[MaCaco_IN_s + slot] = Souliss_T1n_RstCmd;
+                 return 99;  //Return 99 when cmd received from Souliss App Just for test.
+            }
+  
             if(digitalRead(button_pin) && InPin[button_pin] == PINRESET) { 
                  InPin[button_pin] = PINSET;
                  if(PLC_DEBUG) Serial.println(InPin[button_pin]);                 
@@ -108,15 +115,16 @@ uint8_t SoulissPLC_Read(uint8_t slot, uint8_t button_pin, uint8_t plc_pin, uint8
                  return InPin[button_pin];
             }
             
-       
-            if(digitalRead(plc_pin)) 
-            {    
+            
+            if(digitalRead(plc_pin)) {    
                 memory_map[MaCaco_OUT_s + slot] = Souliss_T1n_OnCoil; 
-                if(PLC_DEBUG) Serial.println("PLC ON");                                 
+                memory_map[MaCaco_IN_s + slot] = Souliss_T1n_RstCmd;                
+                //if(PLC_DEBUG) Serial.println("PLC ON"); 
+                
             }
-            else 
-            {
+            else {
                 memory_map[MaCaco_OUT_s + slot] = Souliss_T1n_OffCoil;
-                if(PLC_DEBUG) Serial.println("PLC OFF");             
+                memory_map[MaCaco_IN_s + slot] = Souliss_T1n_RstCmd;                
+                //if(PLC_DEBUG) Serial.println("PLC OFF");             
             }
 }
