@@ -119,12 +119,12 @@ uint8_t SoulissPLC_Read(uint8_t slot, uint8_t button_pin, uint8_t plc_pin, uint8
             if(digitalRead(plc_pin)) {    
                 memory_map[MaCaco_OUT_s + slot] = Souliss_T1n_OnCoil; 
                 memory_map[MaCaco_IN_s + slot] = Souliss_T1n_RstCmd;                
-                //if(PLC_DEBUG) Serial.println("PLC ON"); 
+                if(PLC_DEBUG) Serial.println("PLC ON"); 
                 
             }
             else {
                 memory_map[MaCaco_OUT_s + slot] = Souliss_T1n_OffCoil;
                 memory_map[MaCaco_IN_s + slot] = Souliss_T1n_RstCmd;                
-                //if(PLC_DEBUG) Serial.println("PLC OFF");             
+                if(PLC_DEBUG) Serial.println("PLC OFF");             
             }
 }
