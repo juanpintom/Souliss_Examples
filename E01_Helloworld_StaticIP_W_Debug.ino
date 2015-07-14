@@ -1,5 +1,5 @@
 /**************************************************************************
-    Souliss - Hello World
+    Souliss - Hello World with Static IP and Debug Enabled.
     
     This is the basic example, control one LED via a push-button or Android
     using SoulissApp (get it from Play Store).  
