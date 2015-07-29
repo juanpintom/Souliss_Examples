@@ -98,7 +98,7 @@ void loop()
     EXECUTEFAST() {                     
         UPDATEFAST();   
         
-        FAST_50ms() {   // We process the logic and relevant input and output every 50 milliseconds
+        FAST_x10ms(5){   // We process the logic and relevant input and output every 50 milliseconds
             
             Logic_PulseOutput(MYLEDLOGIC0);                          // Drive the LED as per command
             Logic_PulseOutput(MYLEDLOGIC1);                          // Drive the LED as per command
