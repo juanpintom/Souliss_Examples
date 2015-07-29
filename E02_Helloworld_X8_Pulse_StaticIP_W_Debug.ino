@@ -1,6 +1,10 @@
 /**************************************************************************
     Souliss - Hello World with 8x Pulse Outputs Static IP and Debug Enabled.
     
+    Output PINS from 2 to 9. 
+    
+    PINS 10-13 used by W5100
+    
     This is the basic example, control one Pulse Output via Android
     using SoulissApp (get it from Play Store).  
     
