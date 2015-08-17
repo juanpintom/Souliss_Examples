@@ -1,8 +1,8 @@
 /**************************************************************************
-    Souliss - Hello World with Static IP and Debug Enabled.
+    Souliss - Energy Monitor with Static IP and Debug Enabled.
     
-    This is the basic example, control one LED via a push-button or Android
-    using SoulissApp (get it from Play Store).  
+    This example uses EmonLib to read Current. 
+    Library can be found here: https://github.com/openenergymonitor/EmonLib
     
     Run this code on one of the following boards:
       - Arduino Ethernet (W5100) 
