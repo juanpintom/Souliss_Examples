@@ -139,16 +139,37 @@ void loop()
             Timer_T41(T41);
         } 
         
-        SLOW_60s() {
-    	    Logic_T51(T51);
-    	    Logic_T52(T52);
-    	    Logic_T53(T53);
-    	    Logic_T54(T54);
-    	    Logic_T55(T55);
-    	    Logic_T56(T56);
-    	    Logic_T57(T57);
+        SLOW_x10s(2) {
+            ImportAnalog(T51,random(0, 1024))
+            Read_T51(T51);  
+    	    
+    	    ImportAnalog(T52,random(-20, 50))
+    	    Logic_T52(T52); 
+    	    
+    	    ImportAnalog(T53,random(0, 100))
+    	    Logic_T53(T53); 
+        }
+    	
+    	SLOW_x10s(3) {
+    	    ImportAnalog(T54,random(0, 40000))
+    	    Logic_T54(T54); 
+    	}
+    	
+    	SLOW_x10s(4) {
+    	    ImportAnalog(T55,random(0, 400))
+    	    Logic_T55(T55);  
+    	    
+    	    ImportAnalog(T56,random(0, 25))
+    	    Logic_T56(T56);  
+    	    
+    	    //Change this with T55 * T56 calc
+    	    ImportAnalog(T57,random(0, 6500))
+    	    Logic_T57(T57);  
+    	}
+    	
+    	SLOW_x10s(5) {
+    	    ImportAnalog(T58,random(0, 1500))
     	    Logic_T58(T58);    
-          	
         }	
     }
 } 
