@@ -48,11 +48,11 @@
                           //*************** ** RANDOM IN ** **********************
 #define T51          16   // Generic
 #define T52          18   // Souliss_Logic_T52 - Temperature measure (-20, +50) °C
-#define T53          20		// Souliss_Logic_T53 - Humidity measure (0, 100) %
+#define T53          20	  // Souliss_Logic_T53 - Humidity measure (0, 100) %
 #define T54          22   // Souliss_Logic_T54 - Light Sensor (0, 40) kLux
-#define T55          24		// Souliss_Logic_T55 - Voltage (0, 400) V
+#define T55          24	  // Souliss_Logic_T55 - Voltage (0, 400) V
 #define T56          26   // Souliss_Logic_T56 - Current (0, 25)  A
-#define T57          28		// Souliss_Logic_T57 - Power (0, 6500)  W
+#define T57          28	  // Souliss_Logic_T57 - Power (0, 6500)  W
 #define T58          30   // Souliss_Logic_T58 - Pressure measure (0, 1500) hPa 
 
 
@@ -67,9 +67,30 @@ void setup()
     Initialize();
 
     Souliss_SetIPAddress(ip_address, subnet_mask, ip_gateway);
-	  SetAsGateway(myvNet_address);
+    SetAsGateway(myvNet_address);
     
-    Set_SimpleLight(MYLEDLOGIC);        // Define a simple LED light logic
+    Set_T11(T11);
+    Set_T12(T12);
+    Set_T13(T13);
+    Set_T14(T14);
+    Set_T15(T15);
+    Set_T16(T16);
+    Set_T18(T18);
+    Set_T19(T19);
+    
+    Set_T21(T21);
+    Set_T22(T22);
+    
+    Set_T41(T41);
+    
+    Set_T51(T51);
+    Set_T52(T52);
+    Set_T53(T53);
+    Set_T54(T54);
+    Set_T55(T55);
+    Set_T56(T56);
+    Set_T57(T57);
+    Set_T58(T58);
     
 }
 
@@ -80,13 +101,55 @@ void loop()
         UPDATEFAST();   
         
         FAST_50ms() {   // We process the logic and relevant input and output every 50 milliseconds
-            Logic_SimpleLight(MYLEDLOGIC);                          // Drive the LED as per command
+            Logic_T11(T11);  
+            Logic_T12(T12);  
+            Logic_T13(T13);  
+            Logic_T14(T14);  
+            Logic_T15(T15);      
+            Logic_T16(T16);      
+            Logic_T18(T18);      
+            Logic_T19(T19);      
+            
+            Logic_T21(T21);      
+            Logic_T22(T22);      
+            
+            Logic_T41(T41);  
+            
         } 
               
         // Here we handle here the communication with Android, commands and notification
         // are automatically assigned to MYLEDLOGIC
         FAST_GatewayComms();                                        
         
+    }
+    
+    EXECUTESLOW() { 
+        UPDATESLOW();
+
+        SLOW_10s() {  // Process the timer every 10 seconds  
+            Timer_T11(T11);
+            Timer_T12(T12);
+            Timer_T16(T16);
+            Timer_T18(T18);
+            Timer_T19(T19);
+            
+            Timer_T21(T21);
+            Timer_T22(T22);
+            
+            Timer_T41(T41);
+        } 
+        
+        SLOW_60s() {
+    	    Logic_T51(T51);
+    	    Logic_T52(T52);
+    	    Logic_T53(T53);
+    	    Logic_T54(T54);
+    	    Logic_T55(T55);
+    	    Logic_T56(T56);
+    	    Logic_T57(T57);
+    	    Logic_T58(T58);    
+          	
+        }	
     }
 } 
 
