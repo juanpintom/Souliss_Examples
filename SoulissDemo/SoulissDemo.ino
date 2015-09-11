@@ -41,20 +41,16 @@
 #define T18          10   // ON/OFF Digital Output with pulse output	with Timer Option 
 #define T19          11   // Dimmable Single Color LED Strip
 
-#define T21          13   // Motorized devices with limit switches
-#define T22          14   // Motorized devices with limit switches and middle position
+#define T22          13   // Motorized devices with limit switches and middle position
+                      //*************** ** RANDOM IN ** **********************
+#define T52          14   // Souliss_Logic_T52 - Temperature measure (-20, +50) °C
+#define T53          16	  // Souliss_Logic_T53 - Humidity measure (0, 100) %
+#define T54          18   // Souliss_Logic_T54 - Light Sensor (0, 40) kLux
+#define T57          20	  // Souliss_Logic_T57 - Power (0, 6500)  W
+#define T58          22   // Souliss_Logic_T58 - Pressure measure (0, 1500) hPa 
 
-#define T41          15   // Anti-theft integration 
-                          //*************** ** RANDOM IN ** **********************
-#define T51          16   // Generic
-#define T52          18   // Souliss_Logic_T52 - Temperature measure (-20, +50) °C
-#define T53          20	  // Souliss_Logic_T53 - Humidity measure (0, 100) %
-#define T54          22   // Souliss_Logic_T54 - Light Sensor (0, 40) kLux
-#define T55          24	  // Souliss_Logic_T55 - Voltage (0, 400) V
-#define T56          26   // Souliss_Logic_T56 - Current (0, 25)  A
-#define T57          28	  // Souliss_Logic_T57 - Power (0, 6500)  W
-#define T58          30   // Souliss_Logic_T58 - Pressure measure (0, 1500) hPa 
-
+#define T41          24   // Anti-theft integration 
+#define T41_ENABLE   1
 
 uint8_t ip_address[4]  = {192, 168, 1, 77};
 uint8_t subnet_mask[4] = {255, 255, 255, 0};
@@ -78,17 +74,13 @@ void setup()
     Set_T18(T18);
     Set_T19(T19);
     
-    Set_T21(T21);
     Set_T22(T22);
     
-    Set_T41(T41);
-    
-    Set_T51(T51);
+    if(T41_ENABLE) Set_T41(T41);
+
     Set_T52(T52);
     Set_T53(T53);
     Set_T54(T54);
-    Set_T55(T55);
-    Set_T56(T56);
     Set_T57(T57);
     Set_T58(T58);
     
@@ -110,10 +102,9 @@ void loop()
             Logic_T18(T18);      
             Logic_T19(T19);      
             
-            Logic_T21(T21);      
             Logic_T22(T22);      
             
-            Logic_T41(T41);  
+            if(T41_ENABLE) Logic_T41(T41);  
             
         } 
               
@@ -133,20 +124,17 @@ void loop()
             Timer_T18(T18);
             Timer_T19(T19);
             
-            Timer_T21(T21);
             Timer_T22(T22);
             
-            Timer_T41(T41);
+            if(T41_ENABLE) Timer_T41(T41);
         } 
         
         SLOW_x10s(2) {
-            ImportAnalog(T51,random(0, 1024))
-            Read_T51(T51);  
-    	    
-    	    ImportAnalog(T52,random(-20, 50))
+
+    	    ImportAnalog(T52,24+random(0, 100)/100*5);
     	    Logic_T52(T52); 
     	    
-    	    ImportAnalog(T53,random(0, 100))
+    	    ImportAnalog(T53,50+random(0, 100)/100*15)
     	    Logic_T53(T53); 
         }
     	
@@ -156,19 +144,12 @@ void loop()
     	}
     	
     	SLOW_x10s(4) {
-    	    ImportAnalog(T55,random(0, 400))
-    	    Logic_T55(T55);  
-    	    
-    	    ImportAnalog(T56,random(0, 25))
-    	    Logic_T56(T56);  
-    	    
-    	    //Change this with T55 * T56 calc
     	    ImportAnalog(T57,random(0, 6500))
     	    Logic_T57(T57);  
     	}
     	
     	SLOW_x10s(5) {
-    	    ImportAnalog(T58,random(0, 1500))
+    	    ImportAnalog(T58,random(800, 1050))
     	    Logic_T58(T58);    
         }	
     }
